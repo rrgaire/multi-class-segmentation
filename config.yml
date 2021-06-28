@@ -1,0 +1,63 @@
+# path details
+
+device: 1
+
+path:
+  data_root: /media/HDD2/rr/miccai2021/dataset/Task1-Segmentation
+  resume_state: #/media/HDD2/rr/miccai2021/U2Net/2/res2/checkpoints_new/states/90000.state     # path to the state if exists
+  pretrain_model:   # path to the pre-trained model if exists
+  log: logs
+  tb_logger: tb_logger
+  
+  checkpoints:
+    models: ../result/checkpoints/models
+    states: ../result/checkpoints/states
+    val_image_dir: ../result/val_results
+
+# dataset details
+
+# dataset: ['Video001', 'Video002', 'Video003', 'Video004', 'Video005', 'Video006', 'Video007', 'Video008', 'Video009', 'Video011', 'Video013', 'Video014', 'Video016', 'Video017', 'Video018', 'Video019', 'Video022', 'Video023']
+
+datasets:
+  
+  
+  train:
+    name: MICCAI TRAIN
+    dir_list: ['Video001', 'Video002', 'Video004', 'Video006', 'Video007', 'Video008', 'Video009',
+                'Video011', 'Video013', 'Video016', 'Video017', 'Video018', 'Video019', 'Video022', 'Video023']
+
+    batch_size: 8
+    shuffle: True
+    resize: 448
+    crop: 252
+    flip: True
+    rotation: True
+    n_workers: 8
+  
+  valid:
+    name: MICCAI VALID
+    dir_list: ['Video003', 'Video005', 'Video014']
+
+# networks details
+
+network:
+  input_channel: 3
+  n_classes: 4
+
+# training details
+
+train:
+  lr: 0.0001
+  b1: 0.9
+  b2: 0.99
+  
+  wt_bce: 1
+  
+  lr_steps: [80000, 1200000]
+  lr_gamma: 0.5
+
+  niter: 150000
+  val_freq: 1000
+
+  save_step: 10000
+  print_freq: 100
